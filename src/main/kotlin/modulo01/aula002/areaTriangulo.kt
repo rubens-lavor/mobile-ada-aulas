@@ -13,5 +13,7 @@ fun areaTriangulo () {
     println("informe a altura: ")
     val altura: Double = readln().toDoubleOrNull() ?: 0.0
 
-    println("A área do triangulo é ${base.times(altura).div(2)}")
+    val area = base.times(altura).div(2)
+
+    println("A área do triangulo é $area")
 }

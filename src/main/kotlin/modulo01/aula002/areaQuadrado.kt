@@ -20,5 +20,10 @@ fun areaQuadrado () {
     println("informe o lado do quadrado: ")
     val lado: Double = readln().toDoubleOrNull() ?: 0.0
 
-    println("A área do quadrado é de ${lado.pow(2)} e seu perimetro de ${lado.times(4)}")
+    val area = lado.pow(2)
+    val perimetro = lado.times(MULTIPLICADOR_PERIMETRO)
+
+    println("A área do quadrado é de $area e seu perimetro de $perimetro")
 }
+
+private const val MULTIPLICADOR_PERIMETRO = 4
