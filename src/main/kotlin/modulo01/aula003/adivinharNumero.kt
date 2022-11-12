@@ -19,7 +19,7 @@ fun adivinharNumero() {
 
         when {
             num > random -> println("numero maior")
-            num < random -> println("numero menor")
+            else -> println("numero menor")
         }
 
         println("digite um numero")
