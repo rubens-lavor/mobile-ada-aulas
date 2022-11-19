@@ -32,4 +32,9 @@ fun exemplosFor() {
     for (i in listaCompras.indices){
         println(listaCompras[i])
     }
+
+    val products = listOf("produto 1", "produto 2")
+    for ( (index, product) in products.withIndex()) {
+        println("index $index, produto $product")
+    }
 }
