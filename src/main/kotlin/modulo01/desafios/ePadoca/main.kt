@@ -44,18 +44,19 @@ fun main() {
                 catch (_:Exception){ aplicarCupom = 'X' }
             } while (aplicarCupom.uppercaseChar() !in arrayListOf('N', 'S'))
 
-            if (aplicarCupom == 'S') {
+            if (aplicarCupom.uppercaseChar() == 'S') {
                     println("Digite o cupom")
                     try {
                         codigoCupom = readln()
                     } catch (_: Exception) { }
                 if (carrinho.addCupom(chave = codigoCupom)) {
+                    println("cupom aplicado")
                     aplicarCupom = 'N'
                 } else {
                     println("cupom inválido")
                 }
             }
-        } while (aplicarCupom == 'S')
+        } while (aplicarCupom.uppercaseChar() == 'S')
 
         carrinho.finalizarCompar()
     }
