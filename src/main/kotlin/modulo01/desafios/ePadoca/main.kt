@@ -27,7 +27,7 @@ fun main() {
             if (!carrinho.temItem()) {
                 println("Deseja mesmo cancelar compra? (S/N)")
                 try{ sair = readln().first() }
-                catch (_:Exception){ sair = 'N' }
+                catch (_:Exception){ sair = 'X' }
             }
         } while (sair.uppercaseChar() !in arrayListOf('N', 'S'))
 
