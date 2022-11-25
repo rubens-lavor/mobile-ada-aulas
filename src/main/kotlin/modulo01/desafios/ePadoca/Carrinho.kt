@@ -1,43 +1,46 @@
 package modulo01.desafios.ePadoca
 
+import modulo01.desafios.ePadoca.cupons.Cupom
 import modulo01.desafios.ePadoca.produtos.Produto
 
-class Carrinho {
-    private val listaDeProdutos: MutableSet<Produto> = mutableSetOf()
+class Carrinho(val cuponsValidos: Map<String, Cupom>) {
+    val listaDeProdutos: MutableSet<Produto> = mutableSetOf()
+    private var cupom: Cupom? = null
+    val comada: Comanda = Comanda()
 
     fun addItem(produto: Produto) {
         listaDeProdutos.add(produto)
     }
 
-    fun addCupom() {}
-
     fun temItem(): Boolean {
         return listaDeProdutos.isNotEmpty()
     }
 
-    fun total() = listaDeProdutos
-        .map {
-            it.valorTotal()
-        }.reduce { acc, d ->
-            acc + d
+    fun total(): Double {
+        if (temItem()) {
+            val somatorio = listaDeProdutos
+                .map {
+                    it.valorTotal()
+                }.reduce { acc, d ->
+                    acc + d
+                }
+
+            if (cupom != null) {
+                return cupom!!.aplicarDesconto(somatorio)
+            }
+
+            return somatorio
         }
+        return 0.0
+    }
 
-    fun imprimeComanda() {
+    fun addCupom(chave: String): Boolean {
+        cupom = cuponsValidos[chave]
+        return cupom != null
+    }
 
-        var comanda: String = "====================Comanda E-padoca=======================\n" +
-                "===========================================================\n" +
-                "item.......Produto..........Qtd........Valor..........Total\n" +
-                "===========================================================\n"
-
-        listaDeProdutos.forEachIndexed { index, produto ->
-            comanda += "${index.inc().toString().plus("..........")}$produto\n"
-        }
-
-        comanda += "===========================================================\n" +
-                "Total ===========================================> R${'$'} ${total()}\n" +
-                "=====================VOLTE SEMPRE ^-^======================"
-
-        println(comanda)
+    fun finalizarCompar() {
+        comada.imprime(listaDeProdutos, total())
     }
 
 }

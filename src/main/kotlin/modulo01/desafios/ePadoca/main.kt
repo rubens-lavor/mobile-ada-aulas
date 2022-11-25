@@ -1,10 +1,22 @@
 package modulo01.desafios.ePadoca
 
+import modulo01.desafios.ePadoca.cupons.Cupom
+import modulo01.desafios.ePadoca.cupons.Cupom10PADOCA
+import modulo01.desafios.ePadoca.cupons.Cupom5OFF
+import modulo01.desafios.ePadoca.cupons.Cupom5PADOCA
+import modulo01.desafios.ePadoca.produtos.Produto
+
 fun main() {
 
     println("Bem Vindo à padaria E-Padoca!")
 
-    val carrinho = Carrinho()
+
+    val cuponsValidos: Map<String, Cupom> = mapOf(
+        "5PADOCA" to Cupom5PADOCA(),
+        "10PADOCA" to Cupom10PADOCA(),
+        "5OFF" to Cupom5OFF()
+    )
+    val carrinho = Carrinho(cuponsValidos)
     val ePadoca = EPadoca(carrinho)
 
     do {
@@ -14,14 +26,38 @@ fun main() {
         do {
             if (!carrinho.temItem()) {
                 println("Deseja mesmo cancelar compra? (S/N)")
-                sair = readln()[0]
+                try{ sair = readln().first() }
+                catch (_:Exception){ sair = 'N' }
             }
         } while (sair.uppercaseChar() !in arrayListOf('N', 'S'))
 
     } while (sair.uppercaseChar() == 'N')
 
     if (carrinho.temItem()) {
-        carrinho.imprimeComanda()
+        var codigoCupom = ""
+        var aplicarCupom: Char  = 'S'
+
+        do {
+            do {
+                println("Deseja aplicar cupom de desconto? (S/N)")
+                try{ aplicarCupom = readln().first() }
+                catch (_:Exception){ aplicarCupom = 'X' }
+            } while (aplicarCupom.uppercaseChar() !in arrayListOf('N', 'S'))
+
+            if (aplicarCupom == 'S') {
+                    println("Digite o cupom")
+                    try {
+                        codigoCupom = readln()
+                    } catch (_: Exception) { }
+                if (carrinho.addCupom(chave = codigoCupom)) {
+                    aplicarCupom = 'N'
+                } else {
+                    println("cupom inválido")
+                }
+            }
+        } while (aplicarCupom == 'S')
+
+        carrinho.finalizarCompar()
     }
 
 }
