@@ -25,4 +25,13 @@ deve ser lançada uma Excpetion (LimiteEstoqueMaxExcpetion);
 - O Programa deve tratar as exceções que podem acontecer
 
 Ex:
-ID | Peça | Quantidade | #0001| Parafuso | 38 | #0002| Porca | 38 | #0003| Parafuso II | 38 | #0004| Parafuso III | 38 |
+
+ID | Peça | Quantidade
+
+#0001| Parafuso | 38 | 
+
+#0002| Porca | 38 | 
+
+#0003| Parafuso II | 38 | 
+
+#0004| Parafuso III | 38 |
